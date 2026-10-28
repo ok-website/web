@@ -1,1 +1,841 @@
-123456
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大树体育</title>
+    <style>
+        :root {
+            --primary-color: #16a34a;
+            --primary-dark: #15803d;
+            --primary-deep: #14532d;
+            --primary-soft: #f0fdf4;
+            --text-color: #374151;
+            --text-strong: #111827;
+            --text-muted: #7b8794;
+            --bg-color: #f4f7f5;
+            --content-bg: #ffffff;
+            --border-color: #e6ebe8;
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 28px 20px 44px;
+        }
+
+        header {
+            position: relative;
+            text-align: center;
+            padding: 56px 40px;
+            background: var(--primary-dark);
+            color: #fff;
+            margin-bottom: 24px;
+            border-radius: 20px;
+            box-shadow: 0 16px 36px rgba(20, 83, 45, 0.22);
+            overflow: hidden;
+        }
+
+        header::before,
+        header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            pointer-events: none;
+        }
+
+        header::before {
+            width: 220px;
+            height: 220px;
+            top: -110px;
+            right: -60px;
+        }
+
+        header::after {
+            width: 160px;
+            height: 160px;
+            bottom: -80px;
+            left: -50px;
+        }
+
+        h1 {
+            position: relative;
+            z-index: 1;
+            max-width: 640px;
+            margin: 0 auto;
+            font-size: clamp(1.4rem, 4.2vw, 2.1rem);
+            line-height: 1.5;
+            letter-spacing: 0.02em;
+            font-weight: 700;
+        }
+
+        /* 主体内容盒：纯白卡片 */
+        .article-content {
+            background: var(--content-bg);
+            padding: 48px 52px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(17, 40, 27, 0.06);
+            margin-bottom: 28px;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            line-height: 1.95;
+            text-align: justify;
+            letter-spacing: 0.02em;
+        }
+
+        .article-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .article-content b {
+            color: var(--text-strong);
+        }
+
+        .article-content img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 14px;
+            margin: 28px auto;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 6px 20px rgba(17, 40, 27, 0.08);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .article-content img:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(17, 40, 27, 0.14);
+        }
+
+        /* 顶部防伪提示条 */
+        .article-content .notice {
+            text-align: center;
+            margin-bottom: 26px;
+            padding: 12px 18px;
+            font-size: 0.96rem;
+            color: #92700c;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 12px;
+        }
+
+        /* 联系方式卡片 */
+        .article-content .contact-card {
+            margin: 26px 0;
+            padding: 18px 22px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: var(--primary-soft);
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 12px;
+        }
+
+        .article-content .contact-card b {
+            color: var(--primary-deep);
+            letter-spacing: 0.03em;
+        }
+
+        /* 章节小标题 */
+        .article-content .section-title {
+            margin: 38px 0 22px;
+            padding: 14px 20px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            text-align: left;
+            color: var(--primary-deep);
+            background: var(--primary-soft);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* 底部行动号召 */
+        .article-content .cta {
+            margin: 34px 0 12px;
+            padding: 16px 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #92400e;
+            background: #fffbeb;
+            border: 1px dashed #fcd34d;
+            border-radius: 12px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 20px 0;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        /* 右侧悬浮客服二维码 */
+        .qr-float {
+            position: fixed;
+            top: 50%;
+            right: 24px;
+            transform: translateY(-50%);
+            width: 158px;
+            padding: 14px 14px 12px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(17, 40, 27, 0.12);
+            text-align: center;
+            z-index: 900;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .qr-float:hover {
+            transform: translateY(-50%) translateY(-4px);
+            box-shadow: 0 18px 38px rgba(17, 40, 27, 0.18);
+        }
+
+        .qr-float-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .qr-float-title {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.45;
+            color: var(--primary-deep);
+            letter-spacing: 0.02em;
+        }
+
+        /* 移动端展开/收起按钮（桌面端隐藏） */
+        .qr-float-toggle {
+            display: none;
+        }
+
+        /* 窄屏：折叠为悬浮按钮，点击展开二维码卡片 */
+        @media (max-width: 1179px) {
+            .qr-float {
+                top: auto;
+                bottom: 72px;
+                right: 16px;
+                transform: none;
+                width: auto;
+                padding: 0;
+                background: transparent;
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .qr-float:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            .qr-float-img,
+            .qr-float-title {
+                display: none;
+            }
+
+            .qr-float-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 56px;
+                height: 56px;
+                padding: 0;
+                border: none;
+                border-radius: 50%;
+                background: var(--primary-dark);
+                color: #fff;
+                font-family: inherit;
+                font-size: 0.92rem;
+                font-weight: 700;
+                letter-spacing: 0.02em;
+                cursor: pointer;
+                box-shadow: 0 8px 22px rgba(20, 83, 45, 0.34);
+                transition: transform 0.2s ease, background 0.3s ease;
+            }
+
+            .qr-float-toggle:active {
+                transform: scale(0.93);
+            }
+
+            .qr-float.expanded {
+                width: 176px;
+                padding: 14px 14px 12px;
+                background: #fff;
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                box-shadow: 0 14px 32px rgba(17, 40, 27, 0.2);
+            }
+
+            .qr-float.expanded .qr-float-img,
+            .qr-float.expanded .qr-float-title {
+                display: block;
+            }
+
+            .qr-float.expanded .qr-float-title {
+                font-size: 0.9rem;
+            }
+
+            .qr-float.expanded .qr-float-toggle {
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                width: 28px;
+                height: 28px;
+                background: #6b7280;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .qr-float.expanded .qr-float-toggle-label {
+                display: none;
+            }
+
+            .qr-float.expanded .qr-float-toggle::before {
+                content: '\00d7';
+                font-size: 18px;
+                line-height: 1;
+                font-weight: 700;
+            }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 48px;
+            height: 48px;
+            background: var(--primary-dark);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(20, 83, 45, 0.32);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(16px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(20, 83, 45, 0.4);
+        }
+
+        /* Lightbox styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .lightbox.active {
+            display: block;
+        }
+
+        .lightbox-content {
+            position: relative;
+            margin: 5% auto;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .lightbox-image-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .lightbox-content img {
+            max-width: 90vw;
+            max-height: 80vh;
+            border-radius: 0;
+            cursor: default;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-content img.zoomed {
+            transform: scale(1.2);
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+            transition: color 0.3s ease;
+        }
+
+        .close-lightbox:hover {
+            color: #ccc;
+        }
+
+        .lightbox-caption {
+            color: #fff;
+            padding: 15px;
+            font-size: 18px;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+            transition: background 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 16px;
+            z-index: 2001;
+        }
+
+        .zoom-instruction {
+            position: absolute;
+            bottom: 60px;
+            color: #fff;
+            padding: 10px;
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px 14px 32px;
+            }
+
+            header {
+                padding: 38px 24px;
+                margin-bottom: 16px;
+                border-radius: 16px;
+            }
+
+            h1 {
+                line-height: 1.55;
+                letter-spacing: 0.01em;
+            }
+
+            .article-content {
+                padding: 28px 20px;
+                border-radius: 16px;
+            }
+
+            .article-content p {
+                font-size: 1rem;
+                line-height: 1.9;
+                margin-bottom: 16px;
+            }
+
+            .article-content .contact-card {
+                font-size: 1.08rem;
+            }
+
+            .article-content .section-title {
+                font-size: 1.08rem;
+                margin-top: 28px;
+            }
+
+            .back-to-top {
+                bottom: 16px;
+                right: 16px;
+                width: 44px;
+                height: 44px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <!-- 文章标题 -->
+            <h1>别再到处找单了！方案、规划、出票，大树体育一次给你安排明白🥩⚽</h1>
+        </header>
+
+        <main>
+            <article class="article-content">
+                <!-- 主要内容区开始 -->
+                <p class="notice">
+                    认准官方联系方式，谨防假冒。
+                </p>
+                <p class="contact-card">
+                    <b>🟢 客服微信：dashuTC168</b>
+                </p>
+                <p>
+                    <img class="lightbox-trigger" src="https://wkphoto.bj.bcebos.com/1ad5ad6eddc451dabc24b2b7a6fd5266d116329f.jpg" width="25%" />
+                </p>
+                <p>
+                    日常打票、赛事前瞻、方案参考等事务，请优先联系上方客服微信，方便及时安排。
+                </p>
+                <p>
+                    遇到疑难订单，或者对服务有任何问题，也可以直接拨打大树本人专线，我会亲自跟进处理。
+                </p>
+                <p class="contact-card">
+                    <b>☎️ 大树专线：151-5555-0000</b>
+                </p>
+                <p>
+                    <b>实体大店长期经营，店在人在，服务一直都在。</b>
+                </p>
+                <p>
+                    <img class="lightbox-trigger" src="https://s.url.cn/music/photo_new/T060M000000EDAAl3IvdvI.jpg"
+                        width="100%" />
+                </p>
+                <p>
+                    <img class="lightbox-trigger" src="https://s.url.cn/music/photo_new/T060M000002jV2bR2QCTcP.jpg"
+                        width="100%" />
+                </p>
+                <p>
+                    兄弟们好，我是大树！
+                </p>
+                <p>
+                    <b>想把看球从单纯娱乐，变成一项有规划、有机会赚点零花钱的业余尝试？那就别再自己瞎蒙。</b>
+                </p>
+                <p>
+                    每天花一点时间，拿20元、50元从小额开始，跟着方案、控制预算、做好规划。计划做顺了，吃饭钱、加油钱、生活里的小开销，都有机会从比赛中争取回来。
+                </p>
+                <p>
+                    当然，竞彩不是固定工资，也不能保证每场都对。但用副业的思路去规划，和自己临场乱猜、到处找单，最后的效果往往完全不同。
+                </p>
+                <p>
+                    我在本地经营4家实体彩店，300平米旗舰总店体彩、福彩双证齐全。无论你是连球队都认不全的新手小白，还是自己会分析比赛、手里有成熟方案的实战玩家，在大树这里都能找到适合自己的方式。
+                </p>
+                <p>
+                    <b>比赛每天都有，机会也一直在。</b>
+                </p>
+                <p>
+                    真正缺的，从来不是比赛，而是一套清楚的筛选思路、资金规划和执行节奏。
+                </p>
+                <p>
+                    自己到处找单，今天听这个、明天信那个，临场又被各种消息带乱，最后很容易越买越乱。来大树这里，就是帮你把<b>方案参考、资金安排和实体出票</b>一次理顺。
+                </p>
+                <p class="section-title">
+                    <b>🔥新手小白：不用懂太多，跟着大树直接“抄作业”</b>
+                </p>
+                <p>
+                    每天几十场比赛，到底该选哪一场？
+                </p>
+                <p>
+                    球队不认识、数据看不懂、临场消息满天飞，很多新手研究半天，最后还是靠感觉乱蒙。
+                </p>
+                <p>
+                    这些复杂的筛选工作，可以交给大树团队。
+                </p>
+                <p>
+                    我们每天会根据赛程、球队状态和临场变化，筛选值得重点关注的比赛，把当天的<b>核心重心参考、组合思路和资金规划</b>整理清楚，直接发给需要的朋友。
+                </p>
+                <p>
+                    你不需要认识每支球队，也不用天天研究复杂的数据。
+                </p>
+                <p>
+                    <b>大树负责筛选和规划，你负责跟上节奏、照着方案执行。</b>
+                </p>
+                <p>
+                    就像抄标准答案一样，方案给到手，按照计划走，不临场乱改、不盲目追单，也不因为一场结果打乱后面的安排。
+                </p>
+                <p>
+                    新手一开始小额就可以先跟着计划试试。先用自己能够接受的金额熟悉节奏，做顺以后再根据实际情况安排。
+                </p>
+                <p>
+                    看球本来就是生活中的一种乐趣。
+                </p>
+                <p>
+                    有了自己参与的比赛，过程会更有期待；方案做得顺的时候，也有机会给自己增加一点零花钱，吃顿好的、加个油、买点喜欢的东西，让每天多一点刺激和惊喜。
+                </p>
+                <p class="section-title">
+                    <b>💥实战玩家：你负责研究，大树负责后勤</b>
+                </p>
+                <p>
+                    自己会看盘、有中意方案的老玩家，同样欢迎直接找我。
+                </p>
+                <p>
+                    你不需要参考我们的方案，把自己的计划直接发过来即可。大树实体旗舰店多台机器，收到内容后及时安排出票，完成后拍照确认，尽量不耽误你的临场节奏。
+                </p>
+                <p>
+                    正常出票、票据查询以及后续兑奖流程，都会有专人处理。
+                </p>
+                <p>
+                    实体大店最大的优势，就是<b>店在、人也在，遇到问题能够找到人。</b>
+                </p>
+                <p>
+                    不是临时搭建的网络账号，也不是发完消息就失联的小团队。你负责研究比赛、抓住机会，大树负责把出票、查询和后勤服务安排明白。
+                </p>
+                <p>
+                    你有自己的方案，我们给你做好后勤；你不想每天自己筛选比赛，也可以直接参考我们整理的计划。
+                </p>
+                <p>
+                    <b>新手有人带，老玩家有人配合；想跟方案、想找靠谱实体店出票，大树这里都能安排。</b>
+                </p>
+                <p class="section-title">
+                    <b>🎯想长期有收获，靠的是规划和执行</b>
+                </p>
+                <p>
+                    真正影响节奏的，不是某一场的输赢，而是没有提前做好安排，临场凭感觉随意改变计划。
+                </p>
+                <p>
+                    大树团队每天筛选值得关注的场次，提前整理好方案、资金安排和执行节奏。每一步都按照既定规划往下走，不被临场消息带偏，也不因为单场结果随意改变后面的安排。
+                </p>
+                <p>
+                    不是每场都碰，只选择真正有思路、有搞头的比赛。
+                </p>
+                <p>
+                    不懂球，跟着方案走；自己会看盘，直接把计划发来。
+                </p>
+                <p>
+                    想让看球更有意思，也想在合理预算内争取一点额外收获，就别再到处乱找单。<b>跟上大树，照着计划，控制投入，直接干！</b>
+                </p>
+                <p class="cta">
+                    👇【实力不用吹，近期计划效果和反馈直接看图】👇
+                </p>
+                <p>
+                    每天的比赛方案、实体出票记录和实战反馈都会持续更新。文章篇幅有限，更多近期计划和实际效果，直接添加客服微信，到朋友圈查看。
+                </p>
+                <p>
+                    <img class="lightbox-trigger" src="https://wkphoto.bj.bcebos.com/e4dde71190ef76c642d358778d16fdfaaf51676d.jpg" width="100%" />
+                </p>
+                <p>
+                    <img class="lightbox-trigger" src="https://wkphoto.bj.bcebos.com/ac6eddc451da81cb0a2320914266d016082431a0.jpg" width="100%" />
+                </p>
+                <!-- 主要内容区结束 -->
+            </article>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 大树体育 保留所有权利.</p>
+        </footer>
+    </div>
+
+    <!-- 右侧悬浮客服二维码 -->
+    <aside class="qr-float expanded" id="qrFloat">
+        <img class="qr-float-img" src="https://wkphoto.bj.bcebos.com/1ad5ad6eddc451dabc24b2b7a6fd5266d116329f.jpg" alt="客服微信二维码">
+        <p class="qr-float-title">扫码添加客服微信</p>
+        <button class="qr-float-toggle" id="qrFloatToggle" type="button" aria-label="展开或收起客服二维码">
+            <span class="qr-float-toggle-label">客服</span>
+        </button>
+    </aside>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <div class="lightbox-counter"><span id="current-index">1</span> / <span id="total-images">0</span></div>
+        <div class="lightbox-nav lightbox-prev">&lt;</div>
+        <div class="lightbox-nav lightbox-next">&gt;</div>
+        <div class="lightbox-content">
+            <div class="lightbox-image-container">
+                <img id="lightbox-img" src="" alt="">
+            </div>
+            <div class="lightbox-caption"></div>
+            <div class="zoom-instruction">点击图片缩放</div>
+        </div>
+    </div>
+
+    <div class="back-to-top" id="backToTop">↑</div>
+
+    <script>
+        // 回到顶部功能
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            backToTopButton.classList.toggle('visible', window.scrollY > 300);
+        }, { passive: true });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 窄屏悬浮二维码：点击展开/收起
+        const qrFloat = document.getElementById('qrFloat');
+
+        document.getElementById('qrFloatToggle').addEventListener('click', (e) => {
+            e.stopPropagation();
+            qrFloat.classList.toggle('expanded');
+        });
+
+        // Lightbox 功能
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.querySelector('.lightbox-caption');
+        const currentIndexElement = document.getElementById('current-index');
+        const totalImagesElement = document.getElementById('total-images');
+        const zoomInstruction = document.querySelector('.zoom-instruction');
+
+        const images = Array.from(document.querySelectorAll('.lightbox-trigger'), (trigger) => ({
+            src: trigger.src,
+            alt: trigger.alt || ''
+        }));
+
+        let currentImageIndex = 0;
+
+        // 更新灯箱内容
+        function updateLightbox() {
+            const image = images[currentImageIndex];
+            lightboxImg.src = image.src;
+            lightboxImg.classList.remove('zoomed');
+            lightboxCaption.textContent = image.alt;
+            currentIndexElement.textContent = currentImageIndex + 1;
+            zoomInstruction.textContent = '点击图片缩放';
+        }
+
+        // 打开灯箱
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+
+        // 关闭灯箱
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = ''; // 恢复背景滚动
+        }
+
+        // 上一张 / 下一张图片
+        function stepImage(step) {
+            currentImageIndex = (currentImageIndex + step + images.length) % images.length;
+            updateLightbox();
+        }
+
+        // 切换图片缩放
+        function toggleZoom() {
+            const zoomed = lightboxImg.classList.toggle('zoomed');
+            zoomInstruction.textContent = zoomed ? '点击退出缩放' : '点击图片缩放';
+        }
+
+        // 为所有触发器添加事件监听器
+        document.querySelectorAll('.lightbox-trigger').forEach((trigger, index) => {
+            trigger.addEventListener('click', () => openLightbox(index));
+        });
+
+        // 关闭灯箱
+        document.querySelector('.close-lightbox').addEventListener('click', closeLightbox);
+
+        // 点击背景关闭灯箱
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // 导航按钮
+        document.querySelector('.lightbox-prev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            stepImage(-1);
+        });
+
+        document.querySelector('.lightbox-next').addEventListener('click', (e) => {
+            e.stopPropagation();
+            stepImage(1);
+        });
+
+        // 键盘操作：ESC 关闭，方向键切换
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                stepImage(-1);
+            } else if (e.key === 'ArrowRight') {
+                stepImage(1);
+            }
+        });
+
+        // 点击图片缩放
+        lightboxImg.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleZoom();
+        });
+
+        totalImagesElement.textContent = images.length;
+    </script>
+</body>
+
+</html>
